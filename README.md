@@ -10,3 +10,7 @@ Proyecto en Flask (tienda online básica).
 ## Rutas
 - `/` → Mensaje de bienvenida
 - `/producto/<nombre>` → Muestra el producto
+## 🔗 Links
+- GitHub (código): https://github.com/beivy27/proyecto_001_TiendaOnline
+- Render (deploy): https://proyecto-001-tiendaonline.onrender.com
+
