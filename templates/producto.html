@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if producto %}
+  <div class="producto-detalle">
+    <h1>Producto: {{ producto.nombre }}</h1>
+
+    <p><strong>Precio:</strong> ${{ "%.2f"|format(producto.precio) }}</p>
+    <p><strong>Stock:</strong> {{ producto.stock }}</p>
+
+    <a class="btn" href="{{ url_for('index') }}">
+      Volver al catálogo
+    </a>
+  </div>
+
+{% else %}
+  <h1>Producto no encontrado</h1>
+  <p>No existe el producto: <strong>{{ nombre }}</strong></p>
+
+  <a class="btn" href="{{ url_for('index') }}">
+    Volver al catálogo
+  </a>
+{% endif %}
+
+{% endblock %}
