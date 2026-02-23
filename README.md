@@ -27,4 +27,4 @@ Permite agregar, eliminar, actualizar, buscar y listar productos.
 
 ## 🖼 Evidencia de funcionamiento
 
-![Menú funcionando](captura_menu.png)
+![Menú funcionando](captura.png)
