@@ -1,22 +1,54 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<h1>Bienvenido a la Tienda Online</h1>
-<p>Este es el catálogo principal de productos.</p>
+<h1>Inventario</h1>
 
-<div class="cards">
+<form method="GET" action="{{ url_for('index') }}">
+  <input type="text" name="q" placeholder="Buscar por nombre..." value="{{ q }}">
+  <button type="submit">Buscar</button>
+  <a href="{{ url_for('index') }}">Limpiar</a>
+</form>
+
+<br>
+
+<a href="{{ url_for('producto_nuevo') }}">+ Nuevo producto</a>
+
+<br><br>
+
+{% if productos|length == 0 %}
+  <p>No hay productos.</p>
+{% else %}
+<table border="1" cellpadding="10">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
     {% for p in productos %}
-        <div class="card">
-            <h3>{{ p.nombre }}</h3>
-            <p><strong>Precio:</strong> ${{ "%.2f"|format(p.precio) }}</p>
-            <p><strong>Stock:</strong> {{ p.stock }}</p>
+    <tr>
+      <td>{{ p["id"] }}</td>
+      <td>{{ p["nombre"] }}</td>
+      <td>{{ p["cantidad"] }}</td>
+      <td>{{ "%.2f"|format(p["precio"]) }}</td>
+      <td>
+        <a href="{{ url_for('producto_editar', id=p['id']) }}">✏️ Editar</a>
 
-            <a class="btn" href="{{ url_for('producto', nombre=p.nombre) }}">
-                Ver detalle
-            </a>
-        </div>
+        <form action="{{ url_for('producto_eliminar', id=p['id']) }}" method="POST" style="display:inline;">
+          <button type="submit" onclick="return confirm('¿Eliminar este producto?')">🗑 Eliminar</button>
+        </form>
+      </td>
+    </tr>
     {% endfor %}
-</div>
+  </tbody>
+</table>
+{% endif %}
+
+<br>
+<a href="{{ url_for('clientes') }}">Ir a Clientes</a>
 
 {% endblock %}

@@ -1,14 +1,46 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <h1>Clientes</h1>
-<p>Listado de clientes registrados en la tienda.</p>
 
-<ul>
-    <li>Juan Pérez</li>
-    <li>María López</li>
-    <li>Carlos Gómez</li>
-</ul>
+<a href="{{ url_for('cliente_nuevo') }}">+ Nuevo cliente</a>
+
+<br><br>
+
+{% if clientes|length == 0 %}
+  <p>No hay clientes.</p>
+{% else %}
+<table border="1" cellpadding="10">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in clientes %}
+    <tr>
+      <td>{{ c["id"] }}</td>
+      <td>{{ c["nombre"] }}</td>
+      <td>{{ c["telefono"] }}</td>
+      <td>{{ c["email"] }}</td>
+      <td>
+        <a href="{{ url_for('cliente_editar', id=c['id']) }}">✏️ Editar</a>
+
+        <form action="{{ url_for('cliente_eliminar', id=c['id']) }}" method="POST" style="display:inline;">
+          <button type="submit" onclick="return confirm('¿Eliminar este cliente?')">🗑 Eliminar</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<br>
+<a href="{{ url_for('index') }}">Volver a Inventario</a>
 
 {% endblock %}

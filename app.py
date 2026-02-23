@@ -1,31 +1,135 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+import sqlite3
 
 app = Flask(__name__)
 
-# Datos (catálogo)
-productos = [
-    {"nombre": "Camiseta", "precio": 12.50, "stock": 10},
-    {"nombre": "Pantalón", "precio": 25.00, "stock": 5},
-    {"nombre": "Zapatos", "precio": 40.00, "stock": 8},
-    {"nombre": "Gorra", "precio": 8.00, "stock": 20},
-]
+DATABASE = "tienda.db"
 
-@app.route("/")
+
+# =========================
+# CONEXIÓN A BASE DE DATOS
+# =========================
+def get_db_connection():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+# =========================
+# INICIO + BÚSQUEDA
+# =========================
+@app.route('/')
 def index():
-    return render_template("index.html", productos=productos)
+    conn = get_db_connection()
+    busqueda = request.args.get('busqueda')
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
+    if busqueda:
+        productos = conn.execute(
+            "SELECT * FROM productos WHERE nombre LIKE ?",
+            ('%' + busqueda + '%',)
+        ).fetchall()
+    else:
+        productos = conn.execute(
+            "SELECT * FROM productos"
+        ).fetchall()
 
-@app.route("/producto/<nombre>")
-def producto(nombre):
-    prod = next((p for p in productos if p["nombre"].lower() == nombre.lower()), None)
-    return render_template("producto.html", producto=prod, nombre=nombre)
+    conn.close()
+    return render_template('index.html', productos=productos)
 
-@app.route("/clientes")
-def clientes():
-    return render_template("clientes.html")
 
-if __name__ == "__main__":
+# =========================
+# CREAR PRODUCTO
+# =========================
+@app.route('/producto/nuevo', methods=['GET', 'POST'])
+def producto_nuevo():
+
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        cantidad = request.form['cantidad']
+        precio = request.form['precio']
+
+        # VALIDACIÓN BACKEND
+        if not nombre.strip():
+            return "El nombre no puede estar vacío", 400
+
+        if int(cantidad) < 0:
+            return "La cantidad no puede ser negativa", 400
+
+        if float(precio) < 0:
+            return "El precio no puede ser negativo", 400
+
+        conn = get_db_connection()
+        conn.execute(
+            "INSERT INTO productos (nombre, cantidad, precio) VALUES (?, ?, ?)",
+            (nombre, cantidad, precio)
+        )
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('index'))
+
+    return render_template('producto_form.html', producto=None)
+
+
+# =========================
+# EDITAR PRODUCTO
+# =========================
+@app.route('/producto/editar/<int:id>', methods=['GET', 'POST'])
+def producto_editar(id):
+
+    conn = get_db_connection()
+    producto = conn.execute(
+        "SELECT * FROM productos WHERE id = ?",
+        (id,)
+    ).fetchone()
+
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        cantidad = request.form['cantidad']
+        precio = request.form['precio']
+
+        # VALIDACIÓN BACKEND
+        if not nombre.strip():
+            return "El nombre no puede estar vacío", 400
+
+        if int(cantidad) < 0:
+            return "La cantidad no puede ser negativa", 400
+
+        if float(precio) < 0:
+            return "El precio no puede ser negativo", 400
+
+        conn.execute(
+            "UPDATE productos SET nombre = ?, cantidad = ?, precio = ? WHERE id = ?",
+            (nombre, cantidad, precio, id)
+        )
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('index'))
+
+    conn.close()
+    return render_template('producto_form.html', producto=producto)
+
+
+# =========================
+# ELIMINAR PRODUCTO
+# =========================
+@app.route('/producto/eliminar/<int:id>', methods=['POST'])
+def producto_eliminar(id):
+
+    conn = get_db_connection()
+    conn.execute(
+        "DELETE FROM productos WHERE id = ?",
+        (id,)
+    )
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('index'))
+
+
+# =========================
+# EJECUCIÓN
+# =========================
+if __name__ == '__main__':
     app.run(debug=True)
