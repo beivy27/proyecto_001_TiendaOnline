@@ -1,54 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Inventario</h1>
+<h2>Inventario</h2>
+<a href="{{ url_for('agregar') }}">Agregar producto</a>
 
-<form method="GET" action="{{ url_for('index') }}">
-  <input type="text" name="q" placeholder="Buscar por nombre..." value="{{ q }}">
-  <button type="submit">Buscar</button>
-  <a href="{{ url_for('index') }}">Limpiar</a>
+<table border="1">
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Cantidad</th>
+<th>Precio</th>
+<th>Acciones</th>
+</tr>
+
+{% for p in productos %}
+<tr>
+<td>{{ p.id }}</td>
+<td>{{ p.nombre }}</td>
+<td>{{ p.cantidad }}</td>
+<td>{{ p.precio }}</td>
+<td>
+<a href="{{ url_for('editar', id=p.id) }}">Editar</a>
+<form action="{{ url_for('eliminar', id=p.id) }}" method="POST" style="display:inline;">
+<button type="submit">Eliminar</button>
 </form>
-
-<br>
-
-<a href="{{ url_for('producto_nuevo') }}">+ Nuevo producto</a>
-
-<br><br>
-
-{% if productos|length == 0 %}
-  <p>No hay productos.</p>
-{% else %}
-<table border="1" cellpadding="10">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Cantidad</th>
-      <th>Precio</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for p in productos %}
-    <tr>
-      <td>{{ p["id"] }}</td>
-      <td>{{ p["nombre"] }}</td>
-      <td>{{ p["cantidad"] }}</td>
-      <td>{{ "%.2f"|format(p["precio"]) }}</td>
-      <td>
-        <a href="{{ url_for('producto_editar', id=p['id']) }}">✏️ Editar</a>
-
-        <form action="{{ url_for('producto_eliminar', id=p['id']) }}" method="POST" style="display:inline;">
-          <button type="submit" onclick="return confirm('¿Eliminar este producto?')">🗑 Eliminar</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
+</td>
+</tr>
+{% endfor %}
 </table>
-{% endif %}
-
-<br>
-<a href="{{ url_for('clientes') }}">Ir a Clientes</a>
 
 {% endblock %}
