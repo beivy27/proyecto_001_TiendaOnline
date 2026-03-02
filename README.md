@@ -1,30 +1,35 @@
-# Proyecto 001 - Tienda Online / Sistema de Inventario
+# 🛒 Proyecto 001 – Tienda Online / Sistema de Inventario (Flask)
 
 ## 📌 Descripción
-Sistema de inventario desarrollado en Python que permite gestionar productos mediante un menú interactivo en consola.  
-Permite agregar, eliminar, actualizar, buscar y listar productos.
 
-## ⚙️ Cómo ejecutar el proyecto
+Sistema de inventario desarrollado en **Python con Flask** que permite gestionar productos mediante una interfaz web.
 
-1. Clonar el repositorio:
-   git clone <URL_DEL_REPOSITORIO>
+El sistema implementa:
 
-2. Ingresar a la carpeta:
-   cd proyecto_001_TiendaOnline
+- CRUD completo con SQLite
+- Persistencia en archivos TXT
+- Persistencia en archivos JSON
+- Persistencia en archivos CSV
+- Uso de SQLAlchemy (ORM)
+- Estructura modular del proyecto
+- Control de versiones con Git y GitHub
 
-3. Ejecutar el sistema:
-   python3 menu.py
+---
 
-## ✅ Funcionalidades implementadas
+## ⚙️ Tecnologías utilizadas
 
-- Agregar producto
-- Eliminar producto
-- Actualizar producto
-- Buscar producto por nombre
-- Mostrar todos los productos
-- Validaciones básicas
-- Persistencia con base de datos
+- Python 3
+- Flask
+- SQLite
+- SQLAlchemy
+- HTML
+- Git / GitHub
 
-## 🖼 Evidencia de funcionamiento
+---
 
-![Menú funcionando](captura.png)
+## 🚀 Cómo ejecutar el proyecto
+
+### 1️⃣ Clonar el repositorio
+
+```bash
+git clone https://github.com/beivy27/proyecto_001_TiendaOnline.git
