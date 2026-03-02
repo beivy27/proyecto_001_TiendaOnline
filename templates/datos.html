@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Persistencia de Datos</title>
+</head>
+<body>
+
+<h1>Guardar en TXT, JSON y CSV</h1>
+
+<form method="POST">
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="number" step="0.01" name="precio" placeholder="Precio" required>
+    <input type="number" name="cantidad" placeholder="Cantidad" required>
+
+    <select name="formato" required>
+        <option value="">Seleccione formato</option>
+        <option value="txt">TXT</option>
+        <option value="json">JSON</option>
+        <option value="csv">CSV</option>
+    </select>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<h2>Datos TXT</h2>
+<pre>{{ datos_txt }}</pre>
+
+<h2>Datos JSON</h2>
+<pre>{{ datos_json }}</pre>
+
+<h2>Datos CSV</h2>
+<pre>{{ datos_csv }}</pre>
+
+<a href="{{ url_for('productos') }}">Volver a Productos</a>
+
+</body>
+</html>
