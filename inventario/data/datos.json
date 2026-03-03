@@ -1,7 +1,17 @@
 [
-    {
-        "nombre": "Prueba1",
-        "precio": "100",
-        "cantidad": "2"
-    }
+  {
+    "nombre": "Prueba1",
+    "precio": "100",
+    "cantidad": "2"
+  },
+  {
+    "nombre": "Mause",
+    "precio": "25",
+    "cantidad": "5"
+  },
+  {
+    "nombre": "Monitor",
+    "precio": "300",
+    "cantidad": "4"
+  }
 ]
