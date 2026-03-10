@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes MySQL</title>
+</head>
+<body>
+    <h1>Lista de clientes desde MySQL</h1>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Acciones</th>
+        </tr>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente[0] }}</td>
+            <td>{{ cliente[1] }}</td>
+            <td>{{ cliente[2] }}</td>
+            <td>{{ cliente[3] }}</td>
+            <td>{{ cliente[4] }}</td>
+            <td>{{ cliente[5] }}</td>
+            <td>
+                <a href="/editar_cliente_mysql/{{ cliente[0] }}">Editar</a> |
+                <a href="/eliminar_cliente_mysql/{{ cliente[0] }}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/agregar_cliente_mysql">Agregar cliente</a>
+    <br>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>

@@ -14,6 +14,7 @@
             <th>Descripción</th>
             <th>Precio</th>
             <th>Stock</th>
+            <th>Acciones</th>
         </tr>
         {% for producto in productos %}
         <tr>
@@ -22,10 +23,16 @@
             <td>{{ producto[2] }}</td>
             <td>{{ producto[3] }}</td>
             <td>{{ producto[4] }}</td>
+            <td>
+                <a href="/editar_producto_mysql/{{ producto[0] }}">Editar</a> |
+                <a href="/eliminar_producto_mysql/{{ producto[0] }}">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
 
+    <br>
+    <a href="/agregar_producto_mysql">Agregar producto</a>
     <br>
     <a href="/">Volver al inicio</a>
 </body>
