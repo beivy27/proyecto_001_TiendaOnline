@@ -1,32 +1,16 @@
-{% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio - Tienda Online</title>
+</head>
+<body>
+    <h1>Sistema Tienda Online con Flask y MySQL</h1>
 
-<h2>Inventario</h2>
-<a href="{{ url_for('agregar') }}">Agregar producto</a>
-
-<table border="1">
-<tr>
-<th>ID</th>
-<th>Nombre</th>
-<th>Cantidad</th>
-<th>Precio</th>
-<th>Acciones</th>
-</tr>
-
-{% for p in productos %}
-<tr>
-<td>{{ p.id }}</td>
-<td>{{ p.nombre }}</td>
-<td>{{ p.cantidad }}</td>
-<td>{{ p.precio }}</td>
-<td>
-<a href="{{ url_for('editar', id=p.id) }}">Editar</a>
-<form action="{{ url_for('eliminar', id=p.id) }}" method="POST" style="display:inline;">
-<button type="submit">Eliminar</button>
-</form>
-</td>
-</tr>
-{% endfor %}
-</table>
-
-{% endblock %}
+    <ul>
+        <li><a href="/test_db">Probar conexión MySQL</a></li>
+        <li><a href="/usuarios_mysql">Ver usuarios MySQL</a></li>
+        <li><a href="/productos_mysql">Ver productos MySQL</a></li>
+    </ul>
+</body>
+</html>
