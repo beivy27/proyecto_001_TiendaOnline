@@ -13,6 +13,7 @@
             <th>Nombre</th>
             <th>Mail</th>
             <th>Password</th>
+            <th>Acciones</th>
         </tr>
         {% for usuario in usuarios %}
         <tr>
@@ -20,8 +21,17 @@
             <td>{{ usuario[1] }}</td>
             <td>{{ usuario[2] }}</td>
             <td>{{ usuario[3] }}</td>
+            <td>
+                <a href="/editar_usuario_mysql/{{ usuario[0] }}">Editar</a> |
+                <a href="/eliminar_usuario_mysql/{{ usuario[0] }}">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
+
+    <br>
+    <a href="/agregar_usuario_mysql">Agregar usuario</a>
+    <br>
+    <a href="/">Volver al inicio</a>
 </body>
 </html>

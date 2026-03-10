@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar usuario MySQL</title>
+</head>
+<body>
+    <h1>Editar usuario en MySQL</h1>
+
+    <form method="POST">
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre" value="{{ usuario[1] }}" required><br><br>
+
+        <label>Mail:</label><br>
+        <input type="email" name="mail" value="{{ usuario[2] }}" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="text" name="password" value="{{ usuario[3] }}" required><br><br>
+
+        <button type="submit">Actualizar usuario</button>
+    </form>
+
+    <br>
+    <a href="/usuarios_mysql">Volver a usuarios</a>
+    <br>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>
