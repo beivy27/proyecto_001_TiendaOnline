@@ -2,22 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio - Tienda Online</title>
+    <title>Sistema Tienda Online con Flask y MySQL</title>
 </head>
 <body>
     <h1>Sistema Tienda Online con Flask y MySQL</h1>
 
-    <ul>
-        <li><a href="/test_db">Probar conexión MySQL</a></li>
+    {% if current_user.is_authenticated %}
+        <p>Bienvenido, {{ current_user.nombre }}</p>
 
-        <li><a href="/usuarios_mysql">Ver usuarios MySQL</a></li>
-        <li><a href="/agregar_usuario_mysql">Agregar usuario MySQL</a></li>
-
-        <li><a href="/productos_mysql">Ver productos MySQL</a></li>
-        <li><a href="/agregar_producto_mysql">Agregar producto MySQL</a></li>
-
-        <li><a href="/clientes_mysql">Ver clientes MySQL</a></li>
-        <li><a href="/agregar_cliente_mysql">Agregar cliente MySQL</a></li>
-    </ul>
+        <ul>
+            <li><a href="/test_db">Probar conexión MySQL</a></li>
+            <li><a href="/usuarios_mysql">Ver usuarios MySQL</a></li>
+            <li><a href="/agregar_usuario_mysql">Agregar usuario MySQL</a></li>
+            <li><a href="/productos_mysql">Ver productos MySQL</a></li>
+            <li><a href="/agregar_producto_mysql">Agregar producto MySQL</a></li>
+            <li><a href="/clientes_mysql">Ver clientes MySQL</a></li>
+            <li><a href="/agregar_cliente_mysql">Agregar cliente MySQL</a></li>
+            <li><a href="/logout">Cerrar sesión</a></li>
+        </ul>
+    {% else %}
+        <ul>
+            <li><a href="/login">Iniciar sesión</a></li>
+            <li><a href="/registro">Registrarse</a></li>
+        </ul>
+    {% endif %}
 </body>
 </html>
